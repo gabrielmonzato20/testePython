@@ -1,6 +1,6 @@
-# # Test brasilprev
+# # Test Python
 
-Teste para a brasilprev utilizando java com Spring boot e oracle db 
+Teste para a utilizando python com Flask + Mysql
 ## Instalação
 
 O sistema foi esta modularizado com [docker](https://docs.docker.com/get-docker/)
