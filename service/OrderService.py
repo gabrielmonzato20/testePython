@@ -22,7 +22,7 @@ class OrderService:
                 insert = association_table.insert().values(order_id =order.id,
                                                            product_id=product["id"],
                                                            qtd=product["qtd"])
-                self.product.updateStock(product["qtd"],order.id)
+                self.product.updateStock(product["qtd"],product["id"])
                 db.session.execute(insert)
             db.session.commit()
         except Exception as e:
