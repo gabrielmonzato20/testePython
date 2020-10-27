@@ -3,6 +3,8 @@ from model.Order import Order
 from service.ProductService import ProductService
 from service.CustomerServer import CustomerService
 from model.Order import association_table
+from Validation.OrderValidate import OrderValidate
+
 class OrderService:
     def __init__(self):
         self.customer = CustomerService()
@@ -11,6 +13,7 @@ class OrderService:
     def save(self,data):
 
         try:
+            OrderValidate(data)
             order = Order()
             order.customer_id= data['customer_id']
             db.session.add(order)
@@ -19,6 +22,7 @@ class OrderService:
                 insert = association_table.insert().values(order_id =order.id,
                                                            product_id=product["id"],
                                                            qtd=product["qtd"])
+                self.product.updateStock(product["qtd"],order.id)
                 db.session.execute(insert)
             db.session.commit()
         except Exception as e:
@@ -31,6 +35,7 @@ class OrderService:
         try:
             if order is not None:
 
+                OrderValidate(data)
                 order.customer_id = self.customer.get(data['customer_id'])
                 db.session.add(order)
                 db.session.commit()
